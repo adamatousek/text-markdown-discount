@@ -25,7 +25,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.12';
+our $VERSION = '0.14';
 
 require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);
@@ -49,7 +49,14 @@ sub markdown {
         }
     }
     if (not defined $flags) {
-        $flags = MKD_NOHEADER()|MKD_NOPANTS();
+        ## Add here default runtime flags defined in
+        ## the version 2 maintenance branch 'v2maint' of https://github.com/Orc/discount .
+        ## More specifically, in {markdown,mkdio}.h and markdown.3.
+        ## These flags correspond with the '-f flags' option of the 'markdown' command,
+        ## explained in discount/markdown.1, and the flag strings in Discount.xs .
+        ##
+        # $flags = MKD_NOHEADER()|MKD_NOPANTS()
+        $flags = MKD_NOHEADER()|MKD_NOPANTS()|MKD_FENCEDCODE()|MKD_DLEXTRA();
     }
     return _markdown($text, $flags);
 }
