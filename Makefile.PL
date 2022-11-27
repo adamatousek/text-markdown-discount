@@ -61,7 +61,7 @@ sub MY::postamble {
     return sprintf('
 $(MYEXTLIB):
 	%s
-', qq{( cd $extdir; CC='cc -fPIC' sh configure.sh --with-fenced-code --with-dl=both; make )\n});
+', qq{( git clone -b v2maint --depth 1 https://github.com/Orc/discount.git > /dev/null 2>&1 || echo '"./discount/" already exists. To "git clone" a new one, move it somewhere else!'; cd $extdir&& CC='cc -fPIC' sh configure.sh --github-checkbox=input && make && make test)\n});
 }
 
 WriteMakefile(

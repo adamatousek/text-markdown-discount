@@ -25,7 +25,7 @@ our @EXPORT = qw(
 	
 );
 
-our $VERSION = '0.12';
+our $VERSION = '0.14';
 
 require XSLoader;
 XSLoader::load('Text::Markdown::Discount', $VERSION);
@@ -49,7 +49,26 @@ sub markdown {
         }
     }
     if (not defined $flags) {
-        $flags = MKD_NOHEADER()|MKD_NOPANTS();
+        ## Add here default runtime flags defined in discount/{markdown,mkdio}.h
+        ## and discount/markdown.3 of the version 2 maintenance branch
+        ## 'v2maint' of https://github.com/Orc/discount .
+        ## These flags correspond with the '-f flags' option of the 'markdown' command,
+        ## explained in discount/markdown.1, and the flag strings in Discount.xs .
+        ##
+        ## MKD_SAFELINK and MKD_AUTOLINK
+        ##   allow protocols defined in the _protocol struct in discount/generate.c,
+        ##   which are "https:", "http:", "news:" and "ftp:", as of Discount v2.2.7.
+        ##
+        ## MKD_LATEX (and MathJax)
+        ##   can be tied and/or tested with
+        ##   https://github.com/KazKobara/dockerfile_fswiki_local
+        ##   though the FSWiki is provided in Japanese.
+        ##
+        ### Examples ###
+        ## Strict (no raw html and safelink):
+        # $flags = MKD_NOHEADER()|MKD_NOPANTS()|MKD_FENCEDCODE()|MKD_DLEXTRA()|MKD_SAFELINK()|MKD_NOHTML();
+        ## With LaTeX (and MathJax):
+        $flags = MKD_NOHEADER()|MKD_NOPANTS()|MKD_FENCEDCODE()|MKD_DLEXTRA()|MKD_SAFELINK()|MKD_LATEX();
     }
     return _markdown($text, $flags);
 }
