@@ -1,7 +1,7 @@
 Revision history for Perl extension Text::Markdown::XS.
 
-0.14 <Add date and time> UTC 2022
-	- replace ./discount/ with v2maint of github.com/Orc/discount
+0.XX <Add date and time> UTC 2022
+	- replace ./discount/ to download v2maint of github.com/Orc/discount
 
 0.13 Mon Aug  2 00:40:26 UTC 2021
 	- 473efac discount/configure.inc: include stdlib.h to find WORD/DWORD @Hugmeir

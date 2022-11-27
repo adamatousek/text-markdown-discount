@@ -14,6 +14,9 @@ MYMETA\..*
 ^Discount.bs$
 ^Discount.c$
 ^Discount.o$
+# to use latest discount that will be download 
+^discount/
+# to include discount (after commenting out the above line)
 ^discount/.*.o$
 ^discount/blocktags$
 ^discount/cols$
